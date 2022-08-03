@@ -19,7 +19,7 @@ Bootstrap(app)
 
 
 # set up database
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///TodoApp.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('TODOAPP_DATABASE_URI', "sqlite:///TodoApp.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link
+      rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous"
+    />
+  <style>
+    body {
+      background-image: url('https://i.pinimg.com/736x/91/5c/cc/915ccc4a5e26fab66fbe5cba2596c373.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      }
+
+    a {
+        color: #ffc107;
+    }
+
+    p {
+        font-size: 25px;
+    }
+
+    .jumbotron {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      height: 100vh;
+      color: white;
+    }
+
+    .space-above {
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+      <div class="container">
+        <h1 class="display-4">My Todo App 💻</h1>
+        <p class="lead">Want help organising your day with well-defined tasks to carry out?</p>
+        <hr class="my-4">
+        <p>You've found the right place! Create a todo list and check off as you finish them.</p>
+        {% if logged_in: %}
+            {% if total|length == 0: %}
+                <a class="btn btn-warning btn-md" href="{{ url_for('todo_list') }}"
+                role="button">No tasks. Create Tasks</a>
+            {% else: %}
+                <a class="btn btn-warning btn-md" href="{{ url_for('todo_list') }}"
+                role="button">Schedule your tasks.</a>
+            {% endif %}
+          <a class="btn btn-danger btn-md" href="{{ url_for('logout') }}" role="button">Logout</a>
+        {% else: %}
+          <a class="btn btn-warning btn-md" href="{{ url_for('login') }}"
+           role="button">Login</a>
+            OR
+          <a class="btn btn-warning btn-md" href="{{ url_for('register') }}"
+           role="button">Register</a>
+        {% endif %}
+      </div>
+    </div>
+</body>
+</html>
+

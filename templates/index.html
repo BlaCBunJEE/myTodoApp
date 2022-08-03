@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <link
+      rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous"
+    />
+
+    <style>
+      .app-container {
+        height: 100vh;
+        width: 100%;
+      }
+      .complete {
+        text-decoration: line-through;
+      }
+      .btn btn-home{
+        color: yellow;
+      }
+      .finished status { color: red; }
+
+      body {
+        background-image: url('https://static.vecteezy.com/system/resources/thumbnails/000/895/539/small_2x/blank-black-diary-and-accessories.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="app-container d-flex align-items-center justify-content-center flex-column">
+      <h1 style="color:white;">My Todo App</h1>
+      <div class="d-flex align-items-center mb-3">
+        <div class="form-group mr-3 mb-0">
+          <form action="{{ url_for('add_task') }}" method="POST" id="new-task">
+             <input required type="text" class="form-control" name="details" placeholder="Enter a task"/>
+          </form>
+        </div>
+        <button value="submit" style="margin: 4px 5px;" type="submit" class="btn btn-primary mr-3" form="new-task">
+            Add Task
+        </button>
+        <a class="btn btn-warning mr-3" style="margin: 4px 1px;" href="{{ url_for('home') }}" role="button">Home Page</a>
+      </div>
+      <div class="table-wrapper">
+        <table class="table table-hover table-bordered" style="color:white;">
+          <thead>
+            <tr>
+              <th>Todo item</th>
+              <th>Date Created</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          {% for task in tasks: %}
+            <tbody>
+              <tr class="table details" style="color:white;">
+                {% if task_done: %}
+                  <td class="complete"><del>{{task.task}}</del></td>
+                  <td class="date created">{{ task.day_created.strftime('%Y-%m-%d')}}</td>
+                  <td class="finished status">{{task.status}}</td>
+                  <a class="btn btn-danger" href="{{ url_for('delete', task_id=task.id) }}" role="button">Delete</a>
+                {% else: %}
+                  <td class="task name">{{task.task}}</td>
+                  <td class="date created">{{ task.day_created.strftime('%Y-%m-%d') }}</td>
+                  <td class="task status">{{task.status}}</td>
+                <td>
+                  <a class="btn btn-danger" href="{{ url_for('delete', task_id=task.id) }}" role="button">Delete</a>
+                  <a class="btn btn-success" href="{{ url_for('finished', task_id=task.id) }}" role="button">Finished</a>
+                </td>
+                {% endif %}
+              </tr>
+            </tbody>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+
+
